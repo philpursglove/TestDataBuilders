@@ -16,61 +16,45 @@ public class Movie
     public int Duration { get; set; }
     public string Description { get; set; }
     public List<StarRating> Ratings { get; set; }
-
-    public Movie(Guid id, string name, string genre, int year, Person director, List<Person> writers, List<Person> actors, int duration, string description, List<StarRating> ratings)
-    {
-        Id = id;
-        Name = name;
-        Genre = genre;
-        YearOfRelease = year;
-        Director = director;
-        Writers = writers;
-        Actors = actors;
-        Duration = duration;
-        Description = description;
-        Ratings = ratings;
-    }
 }
 
 public class MovieTests
 {
     public void MovieTest()
     {
-        var movie = new Movie(Guid.NewGuid(), "Jaws", "Thriller", 1975, new Person("Steven Spielberg"),
-            new List<Person> { new Person("Peter Benchley"), new Person("Carl Gottlieb") },
-            new List<Person>
-                { new Person("Roy Scheider"), new Person("Richard Dreyfuss"), new Person("Robert Shaw") }, 124,
-            "A killer shark", new List<StarRating>());
+        var movie = new MovieBuilder()
+            .WithRandomId()
+            .WithName("Jaws")
+            .WithGenre("Thriller")
+            .WithDirector("Steven Spielberg")
+            .WithWriter("Peter Benchley")
+            .WithActor("Roy Scheider")
+            .WithActor("Richard Dreyfuss")
+            .WithActor("Robert Shaw")
+            .WithYearOfRelease(1975)
+            .WithDurationInMinutes(124)
+            .WithDescription("A killer shark")
+            .Build();
+
         // test goes here
     }
 
-    public void MovieTest2()
-    {
-        var movie = new Movie(Guid.NewGuid(), "Jaws 2", "Thriller", 1978, new Person("Jeannot Szwarc"),
-            new List<Person> { new Person("Carl Gottlieb") },
-            new List<Person>
-                { new Person("Roy Scheider"), new Person("Lorraine Gary") }, 116,
-            "Another killer shark", new List<StarRating>());
-        // test goes here
-    }
-
-    public void MovieTest3()
-    {
-        var movie = new Movie(Guid.NewGuid(), "Jaws 3-D", "Thriller", 1975, new Person("Joe Alves"),
-            new List<Person> { new Person("Carl Gottlieb") },
-            new List<Person>
-                { new Person("Dennis Quaid"), new Person("Louis Gosset Jr.") }, 98,
-            "Yet another killer shark", new List<StarRating>());
-        // test goes here
-    }
+    ///  More tests
 
     public void MovieTest4()
     {
-        var movie = new Movie(Guid.NewGuid(), "Jaws: The Revenge", "Thriller", 1987, new Person("Joseph Sargent"),
-            new List<Person> { new Person("Michael de Guzman") },
-            new List<Person>
-                { new Person("Lorraine Gary"), new Person("Michael Caine") }, 90,
-            "The killer shark goes to the Bahamas", new List<StarRating>());
+        var movie = new MovieBuilder()
+            .WithId("C54EF8AD-E00C-4B26-BD39-47CC547D2C0D")
+            .WithName("Jaws: The Revenge")
+            .Build();
+
         Assert.That(movie.Ratings.Max(r => r.Score), Is.EqualTo(0));
+    }
+
+    public void MovieTest5()
+    {
+        // This test doesn't need to initialise anything, it just needs a valid movie instance
+        var movie = new MovieBuilder().Build();
+        // test
     }
 }
