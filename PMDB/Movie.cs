@@ -57,4 +57,23 @@ public class MovieTests
         var movie = new MovieBuilder().Build();
         // test
     }
+
+    public void Add_The_Meg_For_Testing()
+    {
+        var movie = new MovieBuilder()
+            .WithRandomId()
+            .WithName("The Meg")
+            .WithGenre("Science Fiction")
+            .WithYearOfRelease(2018)
+            .WithDirector("Jon Turteltaub")
+            .WithWriter("Dean Georgan")
+            .WithWriter("Jon Hoeber")
+            .WithWriter("Erich Hoeber")
+            .WithActor("Jason Statham")
+            .WithActor("Ruby Rose")
+            .WithDurationInMinutes(118)
+            .WithDescription("A giant prehistoric killer shark")
+            .Build();
+        // test goes here
+    }
 }
